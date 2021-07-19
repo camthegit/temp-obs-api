@@ -23,6 +23,7 @@ async def get_report_async(city: str, state: Optional[str], country: str, units:
 
     async with httpx.AsyncClient() as client:
         resp: Response = await client.get(url)
+        # resp = await client.get(url)
         if resp.status_code != 200:
             raise ValidationError(resp.text, status_code=resp.status_code)
 
