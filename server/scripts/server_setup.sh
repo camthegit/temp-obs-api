@@ -40,6 +40,9 @@ setfacl -m u:apiuser:rwx /apps/logs/weather_api
 cd /apps
 python3 -m venv venv
 source /apps/venv/bin/activate
+
+# add source command to ~/.zshrc
+
 pip install --upgrade pip setuptools wheel
 pip install --upgrade httpie glances
 pip install --upgrade gunicorn uvloop httptools
@@ -49,11 +52,14 @@ cd /apps
 git clone https://github.com/talkpython/modern-apis-with-fastapi app_repo
 
 # Setup the web app:
-cd /apps/app_repo/ch08-deployment
+cd /apps/huey
 pip install -r requirements.txt
 
+# can run with python main.py and check output with http localhost:8000
+
+## TEST the daemon start command first
 # Copy and enable the daemon
-cp /apps/app_repo/ch08-deployment/server/units/weather.service /etc/systemd/system/
+cp /apps/huey/server/units/weather.service /etc/systemd/system/
 
 systemctl start weather
 systemctl status weather
