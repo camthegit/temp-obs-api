@@ -5,7 +5,11 @@ from typing import List
 from models.location import Location
 from models.reports import Report
 
+from models.site import Site
+from models.observations import ObsReceived
+
 __reports: List[Report] = []
+__obslist: List[ObsReceived] = []
 
 
 async def get_reports() -> List[Report]:
@@ -29,3 +33,28 @@ async def add_report(description: str, location: Location) -> Report:
     __reports.sort(key=lambda r: r.created_date, reverse=True)
 
     return report
+
+
+async def get_obs() -> List[ObsReceived]:
+
+    # Would be an async call here.
+    return list(__obslist)[:5]
+
+
+async def add_obs(site: Site, temp: float, humidity: float, temp_exp: float) -> ObsReceived:
+    now = datetime.datetime.now()
+    obs = ObsReceived(
+        id=str(uuid.uuid4()),
+        location=site,
+        temp=temp,
+        humidity=humidity,
+        temp_exp=temp_exp,
+        created_date=now)
+
+    # Simulate saving to the DB.
+    # Would be an async call here.
+    __obslist.append(obs)
+
+    __obslist.sort(key=lambda r: r.created_date, reverse=True)
+
+    return obs

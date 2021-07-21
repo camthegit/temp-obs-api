@@ -39,19 +39,19 @@ def validate_units(city: str, state: Optional[str], country: Optional[str], unit
         Tuple[str, Optional[str], str, str]:
     city = city.lower().strip()
     if not country:
-        country = "us"
+        country = "au"
     else:
         country = country.lower().strip()
 
     if len(country) != 2:
-        error = f"Invalid country: {country}. It must be a two letter abbreviation such as US or GB."
+        error = f"Invalid country: {country}. It must be a two letter abbreviation such as AU, US or GB."
         raise ValidationError(status_code=400, error_msg=error)
 
     if state:
         state = state.strip().lower()
 
-    if state and len(state) != 2:
-        error = f"Invalid state: {state}. It must be a two letter abbreviation such as CA or KS (use for US only)."
+    if state and len(state) not in [2, 3]:
+        error = f"Invalid state: {state}. It must be a two or three letter abbreviation such as NSW, VIC or CA, KS (use for US only)."
         raise ValidationError(status_code=400, error_msg=error)
 
     if units:

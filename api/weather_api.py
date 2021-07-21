@@ -5,6 +5,7 @@ from fastapi import Depends
 
 from models.location import Location
 from models.reports import Report, ReportSubmittal
+from models.observations import ObsReceived, ObsDetail
 from models.validation_error import ValidationError
 from services import openweather_service, report_service
 
@@ -21,6 +22,14 @@ async def weather(loc: Location = Depends(), units: Optional[str] = 'metric'):
         return fastapi.Response(content=str(x), status_code=500)
 
 
+@router.post('/api/reports', name='add_report', status_code=201, response_model=Report)
+async def reports_post(report_submittal: ReportSubmittal) -> Report:
+    d = report_submittal.description
+    loc = report_submittal.location
+
+    return await report_service.add_report(d, loc)
+
+
 @router.get('/api/reports', name='all_reports', response_model=List[Report])
 async def reports_get() -> List[Report]:
     # await report_service.add_report("A", Location(city="Portland"))
@@ -28,9 +37,18 @@ async def reports_get() -> List[Report]:
     return await report_service.get_reports()
 
 
-@router.post('/api/reports', name='add_report', status_code=201, response_model=Report)
-async def reports_post(report_submittal: ReportSubmittal) -> Report:
-    d = report_submittal.description
-    loc = report_submittal.location
+@router.post('/api/obs', name='add_observation_set', status_code=201, response_model=ObsReceived)
+async def obs_post(obs_detail: ObsDetail) -> ObsReceived:
+    t = obs_detail.temp
+    h = obs_detail.humidity
+    te = obs_detail.temp_exp
+    s = obs_detail.location
 
-    return await report_service.add_report(d, loc)
+    return await report_service.add_obs(site=s, temp=t, humidity=h, temp_exp=te)
+
+
+@router.get('/api/obs', name='all_observations', response_model=List[ObsReceived])
+async def obs_get() -> List[ObsReceived]:
+    # await report_service.add_obs(t, Location(city="Portland"))
+    # await report_service.add_report("B", Location(city="NYC"))
+    return await report_service.get_obs()

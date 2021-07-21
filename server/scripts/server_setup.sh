@@ -71,7 +71,7 @@ apt install nginx
 # CAREFUL HERE. If you are using default, maybe skip this
 rm /etc/nginx/sites-enabled/default
 
-cp /apps/app_repo/ch08-deployment/server/nginx/weather.nginx /etc/nginx/sites-enabled/
+cp /apps/huey/server/nginx/weather.nginx /etc/nginx/sites-enabled/
 update-rc.d nginx enable
 service nginx restart
 
@@ -79,6 +79,19 @@ service nginx restart
 # Optionally add SSL support via Let's Encrypt:
 # https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-18-04
 
-add-apt-repository ppa:certbot/certbot
-apt install python3-certbot-nginx
-certbot --nginx -d weatherapi.talkpython.com
+## DEPRECATED
+# add-apt-repository ppa:certbot/certbot
+# apt install python3-certbot-nginx
+# certbot --nginx -d weatherapi.talkpython.com
+
+## NO - from https://certbot.eff.org:
+sudo snap install core; sudo snap refresh core
+# Install
+snap install --classic
+# Test the link command (?? actual intent here)
+ln -s /snap/bin/certbot /usr/bin/certbot
+# Install cert and configure nginx
+certbot --nginx
+# test automatic renewal
+certbot renew --dry-run
+
