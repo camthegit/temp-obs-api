@@ -58,3 +58,4 @@ async def add_obs(site: Site, temp: float, humidity: float, temp_exp: float) -> 
     __obslist.sort(key=lambda r: r.created_date, reverse=True)
 
     return obs
+# .strftime(%d %b %H:%M:%S )
