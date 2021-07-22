@@ -10,6 +10,7 @@ from models.observations import ObsReceived
 
 __reports: List[Report] = []
 __obslist: List[ObsReceived] = []
+maxobslistlen = 50
 
 
 async def get_reports() -> List[Report]:
@@ -38,7 +39,9 @@ async def add_report(description: str, location: Location) -> Report:
 async def get_obs() -> List[ObsReceived]:
 
     # Would be an async call here.
-    return list(__obslist)[:5]
+    sel = __obslist[-5:]
+    sel.sort(key=lambda r: r.created_date, reverse=True)
+    return sel
 
 
 async def add_obs(site: Site, temp: float, humidity: float, temp_exp: float) -> ObsReceived:
@@ -54,8 +57,9 @@ async def add_obs(site: Site, temp: float, humidity: float, temp_exp: float) -> 
     # Simulate saving to the DB.
     # Would be an async call here.
     __obslist.append(obs)
+    if len(__obslist) > maxobslistlen:
+        __obslist.pop(0)
 
-    __obslist.sort(key=lambda r: r.created_date, reverse=True)
+    # __obslist.sort(key=lambda r: r.created_date, reverse=True)
 
     return obs
-# .strftime(%d %b %H:%M:%S )
