@@ -59,7 +59,7 @@
         <h2>Recent weather events</h2>
         <ul>
             {% for e in events %}
-            <li> {{ e.location.city }}, {{ e.location.country }}: {{ e.description }}</li>
+            <li> {{ e.obsLocation.city }}, {{ e.obsLocation.country }}: {{ e.description }}</li>
             {% endfor %}
         </ul>
     </div>
@@ -67,10 +67,10 @@
 
     {% if obs %}
     <div>
-        <h2>Recent observations</h2>
+        <h2><a href="/recent" target="_blank">Recent observations</a></h2>
         <ul>
             {% for o in obs %}
-            <li> {{ o.location.room }}, {{ o.location.xbee_code }}: T = {{ o.temp }}C, H = {{o.humidity}}%, Feels like {{o.temp_exp}}C, {{o.created_date.strftime("%d %b %H:%M:%S")}}</li>
+            <li> {{ o.obsLocation.room }}, {{ o.obsLocation.xbee_code }}: T = {{ o.temp }}C, H = {{o.humidity}}%, Feels like {{o.temp_exp}}C, {{o.created_date.strftime("%d %b %H:%M:%S")}}</li>
             {% endfor %}
         </ul>
     </div>

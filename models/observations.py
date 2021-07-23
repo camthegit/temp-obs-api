@@ -12,7 +12,7 @@ class ObsDetail(BaseModel):
     temp: float
     humidity: float
     temp_exp: float
-    location: Site
+    obsLocation: Site
 
 
 class ObsReceived(ObsDetail):

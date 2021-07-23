@@ -48,7 +48,7 @@ async def add_obs(site: Site, temp: float, humidity: float, temp_exp: float) -> 
     now = datetime.datetime.now()
     obs = ObsReceived(
         id=str(uuid.uuid4()),
-        location=site,
+        obsLocation=site,
         temp=temp,
         humidity=humidity,
         temp_exp=temp_exp,

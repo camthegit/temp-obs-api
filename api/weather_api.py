@@ -42,7 +42,7 @@ async def obs_post(obs_detail: ObsDetail) -> ObsReceived:
     t = obs_detail.temp
     h = obs_detail.humidity
     te = obs_detail.temp_exp
-    s = obs_detail.location
+    s = obs_detail.obsLocation
 
     return await report_service.add_obs(site=s, temp=t, humidity=h, temp_exp=te)
 

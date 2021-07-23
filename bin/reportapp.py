@@ -58,7 +58,7 @@ def report_obs():
         "temp": t,
         "humidity": h,
         "temp_exp": te,
-        "location": {
+        "obsLocation": {
             "room": room,
             "xbee_code": xbee
         }
@@ -79,7 +79,7 @@ def see_obs():
 
     data = resp.json()
     for r in data:
-        print(f"{r.get('location').get('room')}, XBee: {r.get('location').get('xbee_code')}, T = {r.get('temp')}C, H = {r.get('humidity')}%, T feels like {r.get('temp_exp')}C")
+        print(f"{r.get('obsLocation').get('room')}, XBee: {r.get('obsLocation').get('xbee_code')}, T = {r.get('temp')}C, H = {r.get('humidity')}%, T feels like {r.get('temp_exp')}C")
 
 
 if __name__ == '__main__':
