@@ -12,7 +12,7 @@
     $(function(){
         window.setInterval(function(){
             Update_obs()
-        }, 30000)
+        }, 120000)
 
         const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mar', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         function Update_obs(){
@@ -23,16 +23,20 @@
                 type: "GET",
                 dataType: "json",
                 success: function(data){
-                    console.info('data received')
-                    console.log(data)
+                    // console.info('data received')
+                    // console.log(data)
                     var obsDate;
                     var newDateStr;
+                    var minute;
+                    var obsHour;
                     for (var i = 0; i < data.length; i++) {
                         // console.log(data[i].temp)
                         obsDate = new Date(data[i].created_date)
-                        newDateStr = obsDate.getDate()+' '+months[obsDate.getMonth()]+' '+obsDate.getHours()+':'+obsDate.getMinutes()
-                        console.log(obsDate.getFullYear(obsDate))
-                        newStr = data[i].obsLocation.room+', '+data[i].obsLocation.xbee_code+': T = '+data[i].temp+'C, H = '+data[i].humidity+'%, Feels like '+data[i].temp_exp+'C, '+newDateStr
+                        minute = obsDate.getMinutes()
+                        obsHour = obsDate.getHours()
+                        newDateStr = obsDate.getDate() + ' ' + months[obsDate.getMonth()] + ((obsHour < 10) ? ' 0' : ' ') + obsHour + ((minute < 10) ? ':0' : ':') + minute
+                        // console.log(obsDate.getFullYear(obsDate))
+                        newStr = data[i].obsLocation.room + ', xbee: ' + data[i].obsLocation.xbee_code + ': T = ' + data[i].temp + 'C, H = ' + data[i].humidity + '%, Feels like ' + data[i].temp_exp + 'C, ' + newDateStr
                         $('ul.obs').append('<li class="update">' + newStr + '</li>')
                     }
                 }
