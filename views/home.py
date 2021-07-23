@@ -20,3 +20,19 @@ async def index(request: Request):
 @router.get('/favicon.ico', include_in_schema=False)
 def favicon():
     return fastapi.responses.RedirectResponse(url='/static/img/favicon.ico')
+
+
+@router.post('/recent_update', include_in_schema=False)
+async def recent_update(request: Request):
+    obs = await report_service.get_obs()
+    data = {'request': request, 'obs': obs}
+
+    return templates.TemplateResponse('home/recent_update.html', data)
+
+
+@router.get('/recent', include_in_schema=False)
+async def recent(request: Request):
+    obs = await report_service.get_obs()
+    data = {'request': request, 'obs': obs}
+
+    return templates.TemplateResponse('home/recent.html', data)

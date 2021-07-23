@@ -1,0 +1,52 @@
+{% extends "shared/layout.html" %}
+<head>
+    {% block meta_tags %}
+    <title>Observations</title>
+    {% endblock %}
+</head>
+
+{% block content %}
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>-->
+<!--<script>-->
+<!--    $(function(){-->
+<!--        window.setInterval(function(){-->
+<!--            Update_obs()-->
+<!--        }, 10000)-->
+
+<!--        function Update_obs(){-->
+<!--            $.ajax({-->
+<!--                url: "/recent_update",-->
+<!--                type: "POST",-->
+<!--                dataType: "json",-->
+<!--                success: function(data){-->
+<!--                    $(obslist).replaceWith(data)-->
+<!--                }-->
+<!--            });-->
+<!--        }-->
+<!--    });-->
+<!--</script>-->
+
+<!--    <img src="/static/img/cloud.png" style="float: left; max-width: 48px; margin-right: 20px;" alt="">-->
+    <h1><span class="font-semi-bold">Observations</span> <span class="smaller">from the Wombat weather service API</span>
+    </h1>
+
+    <div style="clear:both;"></div>
+    <br>
+    <br>
+
+
+    {% if obs %}
+    <div>
+        <h2>Recent observations</h2>
+        <div id="obslist">
+        <ul>
+            {% for o in obs %}
+            <li> {{ o.location.room }}, {{ o.location.xbee_code }}: T = {{ o.temp }}C, H = {{o.humidity}}%, Feels like {{o.temp_exp}}C, {{o.created_date.strftime("%d %b %H:%M:%S")}}</li>
+            {% endfor %}
+        </ul>
+        </div>
+    </div>
+    {% endif %}
+
+{% endblock %}
