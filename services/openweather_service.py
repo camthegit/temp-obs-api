@@ -51,7 +51,7 @@ def validate_units(city: str, state: Optional[str], country: Optional[str], unit
         state = state.strip().lower()
 
     if state and len(state) not in [2, 3]:
-        error = f"Invalid state: {state}. It must be a two or three letter abbreviation such as NSW, VIC or CA, KS (use for US only)."
+        error = f"Invalid state: {state}. Must be a two or three letter abbreviation such as NSW, VIC or CA, KS (US)."
         raise ValidationError(status_code=400, error_msg=error)
 
     if units:
