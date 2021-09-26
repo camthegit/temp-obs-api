@@ -22,8 +22,8 @@ def global_init(user=None, password=None, port=27017, server='localhost', use_ss
         print(" --> Registering prod connection: {}".format(data))
     else:
         print(" --> Registering dev connection")
-        mongoengine.register_connection(alias='core', name='salt')
-        mongoengine.register_connection(alias='core_sk', name='sk')
-        mongoengine.register_connection(alias='salt_users', name='salt_users')
-        mongoengine.register_connection(alias='core_kask', name='kask')
+        mongoengine.register_connection(alias='core', name='weather')
+        # mongoengine.register_connection(alias='core_sk', name='sk')
+        # mongoengine.register_connection(alias='salt_users', name='salt_users')
+        # mongoengine.register_connection(alias='core_kask', name='kask')
 

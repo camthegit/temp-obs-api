@@ -6,8 +6,10 @@ import uvicorn
 from starlette.staticfiles import StaticFiles
 
 from api import weather_api
+from data import mongo_setup  # need to configure authentication for server
 from services import openweather_service
 from views import home
+from configs import cnf
 
 api = fastapi.FastAPI()
 
@@ -16,17 +18,19 @@ def configure():
     configure_routing()
     configure_api_keys()
     configure_fake_data()
+    mongo_setup.global_init()  # no authentication set
 
 
 def configure_api_keys():
-    file = Path('settings.json').absolute()
-    if not file.exists():
-        print(f"WARNING: {file} file not found, you cannot continue, please see settings_template.json")
-        raise Exception("settings.json file not found, you cannot continue, please see settings_template.json")
-
-    with open('settings.json') as fin:
-        settings = json.load(fin)
-        openweather_service.api_key = settings.get('api_key')
+    openweather_service.api_key = cnf.OWS_API_KEY
+    # file = Path('settings.json').absolute()
+    # if not file.exists():
+    #     print(f"WARNING: {file} file not found, you cannot continue, please see settings_template.json")
+    #     raise Exception("settings.json file not found, you cannot continue, please see settings_template.json")
+    #
+    # with open('settings.json') as fin:
+    #     settings = json.load(fin)
+    #     openweather_service.api_key = settings.get('api_key')
 
 
 def configure_routing():

@@ -37,6 +37,16 @@ cat mongodb-cert.key mongodb-cert.crt > mongodb.pem
 # edit the mongo config
 nano /etc/mongod.conf
 
+### now need: ###################################
+
+net:
+   tls:
+      mode: requireTLS
+      certificateKeyFile: /etc/ssl/mongodb.pem
+
+##################################################
+mongo --port 10042 --tlsAllowInvalidCertificates --tls
+##################################################
 net:
   port: 10042
   ssl:
@@ -48,6 +58,7 @@ service mongod restart
 
 # connect with:
 mongo --port 10042 --sslAllowInvalidCertificates --ssl
+##########################################################
 
 # generate a password
 print('another-password-{}'.format(uuid.uuid4()))

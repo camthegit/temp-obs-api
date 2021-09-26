@@ -7,3 +7,5 @@ requests
 # uvloop
 httptools
 pydantic
+mongoengine
+python-dotenv
