@@ -9,3 +9,5 @@ httptools
 pydantic
 mongoengine
 python-dotenv
+motor
+asyncio

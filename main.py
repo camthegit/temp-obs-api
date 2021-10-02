@@ -1,9 +1,13 @@
+import asyncio
 import json
 from pathlib import Path
 
 import fastapi
 import uvicorn
 from starlette.staticfiles import StaticFiles
+import motor.motor_asyncio
+import logging
+# from log_settings import LOGGING_CONFIG
 
 from api import weather_api
 from data import mongo_setup  # need to configure authentication for server
@@ -14,11 +18,17 @@ from configs import cnf
 api = fastapi.FastAPI()
 
 
+def start_logging():
+    pass
+
+
 def configure():
     configure_routing()
     configure_api_keys()
     configure_fake_data()
-    mongo_setup.global_init()  # no authentication set
+    # mongo_setup.global_init()  # no authentication set
+    start_logging()
+    start_mongo()
 
 
 def configure_api_keys():
@@ -31,6 +41,21 @@ def configure_api_keys():
     # with open('settings.json') as fin:
     #     settings = json.load(fin)
     #     openweather_service.api_key = settings.get('api_key')
+
+
+def start_mongo():
+    client = motor.motor_asyncio.AsyncIOMotorClient('localhost', 27017)
+    db = client.weather
+    coll = db.test_coll
+    loop = asyncio.get_event_loop()
+
+    loop.run_until_complete(do_insert(coll))
+
+
+async def do_insert(coll):
+    document = {'temp_test': '99'}
+    result = await coll.insert_one(document)
+    print('result %s' % repr(result.inserted_id))
 
 
 def configure_routing():
