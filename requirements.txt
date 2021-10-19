@@ -11,3 +11,4 @@ mongoengine
 python-dotenv
 motor
 asyncio
+python-json-logger

@@ -7,7 +7,9 @@ import uvicorn
 from starlette.staticfiles import StaticFiles
 import motor.motor_asyncio
 import logging
-# from log_settings import LOGGING_CONFIG
+import logging.config
+from log_settings import LOGGING_CONFIG
+from pythonjsonlogger import jsonlogger
 
 from api import weather_api
 from data import mongo_setup  # need to configure authentication for server
@@ -16,18 +18,24 @@ from views import home
 from configs import cnf
 
 api = fastapi.FastAPI()
+logging.config.dictConfig(LOGGING_CONFIG)
+logger = logging.getLogger(__name__)
+logger.info('logger started at head of main')
 
 
-def start_logging():
-    pass
+def config_logging():
+    logging.config.dictConfig(LOGGING_CONFIG)
 
 
 def configure():
+
+    # config_logging()
+    # logger = logging.getLogger(__name__)
+    logger.debug('attempt to log again', extra={'tester': 'ctp'})
     configure_routing()
     configure_api_keys()
     configure_fake_data()
     # mongo_setup.global_init()  # no authentication set
-    start_logging()
     start_mongo()
 
 

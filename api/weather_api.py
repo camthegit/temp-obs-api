@@ -8,12 +8,15 @@ from models.reports import Report, ReportSubmittal
 from models.observations import ObsReceived, ObsDetail
 from models.validation_error import ValidationError
 from services import openweather_service, report_service
+import logging
 
 router = fastapi.APIRouter()
+logger = logging.getLogger(__name__)
 
 
 @router.get('/api/weather/{city}')
 async def weather(loc: Location = Depends(), units: Optional[str] = 'metric'):
+    logger.info('location for weather received')
     try:
         return await openweather_service.get_report_async(loc.city, loc.state, loc.country, units)
     except ValidationError as ve:

@@ -20,6 +20,15 @@ async def get_reports() -> List[Report]:
 
 
 async def add_report(description: str, location: Location) -> Report:
+    """
+
+    :param description:
+    :type description:
+    :param location:
+    :type location:
+    :return:
+    :rtype:
+    """
     now = datetime.datetime.now()
     report = Report(
         id=str(uuid.uuid4()),
