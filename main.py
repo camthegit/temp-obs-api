@@ -5,14 +5,15 @@ from pathlib import Path
 import fastapi
 import uvicorn
 from starlette.staticfiles import StaticFiles
-import motor.motor_asyncio
+# import motor.motor_asyncio
 import logging
 import logging.config
 from log_settings import LOGGING_CONFIG
 from pythonjsonlogger import jsonlogger
 
 from api import weather_api
-from data import mongo_setup  # need to configure authentication for server
+# from data import mongo_setup  # need to configure authentication for server
+from data.mongo_run import mongo_client
 from services import openweather_service
 from views import home
 from configs import cnf
@@ -23,20 +24,14 @@ logger = logging.getLogger(__name__)
 logger.info('logger started at head of main')
 
 
-def config_logging():
-    logging.config.dictConfig(LOGGING_CONFIG)
-
-
 def configure():
 
-    # config_logging()
-    # logger = logging.getLogger(__name__)
     logger.debug('attempt to log again', extra={'tester': 'ctp'})
     configure_routing()
     configure_api_keys()
     configure_fake_data()
     # mongo_setup.global_init()  # no authentication set
-    start_mongo()
+    test_mongo()
 
 
 def configure_api_keys():
@@ -51,13 +46,15 @@ def configure_api_keys():
     #     openweather_service.api_key = settings.get('api_key')
 
 
-def start_mongo():
-    client = motor.motor_asyncio.AsyncIOMotorClient('localhost', 27017)
+def test_mongo():
+    # client = motor.motor_asyncio.AsyncIOMotorClient('localhost', 27017)
+    client = mongo_client()
     db = client.weather
     coll = db.test_coll
     loop = asyncio.get_event_loop()
 
     loop.run_until_complete(do_insert(coll))
+    client.close
 
 
 async def do_insert(coll):

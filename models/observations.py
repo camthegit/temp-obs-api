@@ -2,12 +2,12 @@ import datetime
 import uuid
 from typing import Optional
 
-from pydantic import BaseModel
-
+# from pydantic import BaseModel
+from odmantic import Field, Model
 from models.site import Site
 
 
-class ObsDetail(BaseModel):
+class ObsDetail(Model):
     # description: str
     temp: float
     humidity: float

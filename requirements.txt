@@ -9,6 +9,7 @@ httptools
 pydantic
 mongoengine
 python-dotenv
-motor
+# motor  ## odmantic installs lower version
 asyncio
 python-json-logger
+odmantic
