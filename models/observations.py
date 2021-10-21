@@ -12,10 +12,11 @@ class ObsDetail(Model):
     temp: float
     humidity: float
     temp_exp: float
-    obsLocation: Site
+    obsLocation: Optional[Site]
     sensor: Optional[str]
+    saved: Optional[datetime.datetime]
 
 
 class ObsReceived(ObsDetail):
-    id: str
+    # id: str
     created_date: Optional[datetime.datetime]

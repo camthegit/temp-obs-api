@@ -2,11 +2,13 @@
 import motor.motor_asyncio
 import logging
 from data import mongo_setup
+from odmantic import AIOEngine
 
 
 logger = logging.getLogger(__name__)
 
-def mongo_client():
+def get_engine():
     client = motor.motor_asyncio.AsyncIOMotorClient('localhost', 27017)
+    engine = AIOEngine(motor_client=client, database='weather')
     logger.debug(f'motor client created: {client.server_info()}')
-    return client
+    return engine
