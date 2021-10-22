@@ -39,9 +39,13 @@ async def reports_get() -> List[Report]:
     # await report_service.add_report("B", Location(city="NYC"))
     return await report_service.get_reports()
 
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> #
+# My amended endpoints using odmantic below
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< #
 
-@router.post('/api/obs', name='add_observation_set', status_code=201, response_model=ObsReceived)
-async def obs_post(obs_detail: ObsDetail) -> ObsReceived:
+
+@router.post('/api/obs', name='add_observation_set', status_code=201, response_model=ObsDetail)
+async def obs_post(obs_detail: ObsDetail) -> ObsDetail:
     t = obs_detail.temp
     h = obs_detail.humidity
     te = obs_detail.temp_exp
@@ -50,8 +54,8 @@ async def obs_post(obs_detail: ObsDetail) -> ObsReceived:
     return await report_service.add_obs(site=s, temp=t, humidity=h, temp_exp=te)
 
 
-@router.get('/api/obs', name='all_observations', response_model=List[ObsReceived])
-async def obs_get() -> List[ObsReceived]:
+@router.get('/api/obs', name='all_observations', response_model=List[ObsDetail])
+async def obs_get() -> List[ObsDetail]:
     # await report_service.add_obs(t, Location(city="Portland"))
     # await report_service.add_report("B", Location(city="NYC"))
     return await report_service.get_obs()

@@ -26,6 +26,7 @@ logging.config.dictConfig(LOGGING_CONFIG)
 logger = logging.getLogger(__name__)
 logger.info('logger started at head of main')
 
+
 def configure():
 
     logger.debug('attempt to log again', extra={'tester': 'ctp'})

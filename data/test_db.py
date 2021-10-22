@@ -6,6 +6,7 @@ import datetime
 
 logger = logging.getLogger(__name__)
 
+
 async def test_mongo():
     # client = motor.motor_asyncio.AsyncIOMotorClient('localhost', 27017)
     db = get_engine()  # refers to odmantic connection to 'weather'
@@ -17,4 +18,5 @@ async def test_mongo():
     # loop = asyncio.get_event_loop()
     #
     # loop.run_until_complete(do_insert(coll))
-    # client.close
+    # client.closeimport datetime
+    return repr(res)
