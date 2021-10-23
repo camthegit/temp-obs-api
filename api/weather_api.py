@@ -50,8 +50,9 @@ async def obs_post(obs_detail: ObsDetail) -> ObsDetail:
     h = obs_detail.humidity
     te = obs_detail.temp_exp
     s = obs_detail.obsLocation
+    v = obs_detail.volts
 
-    return await report_service.add_obs(site=s, temp=t, humidity=h, temp_exp=te)
+    return await report_service.add_obs(site=s, temp=t, humidity=h, temp_exp=te, volts=v)
 
 
 @router.get('/api/obs', name='all_observations', response_model=List[ObsDetail])

@@ -58,8 +58,10 @@ async def get_obs() -> List[ObsDetail]:
     # sel.sort(key=lambda r: r.saved, reverse=True)
     return sel
 
+# Todo: Deal will null values - better not to save at all
 
-async def add_obs(site: Site, temp: float, humidity: float, temp_exp: float) -> ObsDetail:
+
+async def add_obs(site: Site, temp: float, humidity: float, temp_exp: float, volts: float) -> ObsDetail:
     db = get_engine()  # refers to odmantic connection to 'weather'
 
     now = datetime.datetime.now()
@@ -70,6 +72,8 @@ async def add_obs(site: Site, temp: float, humidity: float, temp_exp: float) -> 
         humidity=humidity,
         temp_exp=temp_exp,
         saved=now)
+    if volts:
+        obs.volts = volts
     res = await db.save(obs)
     logger.debug('result %s' % repr(res))
     # Simulate saving to the DB.
