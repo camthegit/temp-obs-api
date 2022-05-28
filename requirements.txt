@@ -1,15 +1,19 @@
-fastapi
-uvicorn
-httpx
+fastapi~=0.75.0
+uvicorn~=0.17.5
+httpx~=0.22.0
 jinja2
 aiofiles
-requests
+requests~=2.27.1
 # uvloop
 httptools
-pydantic
-mongoengine
+pydantic~=1.8.2
+mongoengine~=0.24.0
 python-dotenv
 # motor  ## odmantic installs lower version
-asyncio
+asyncio~=3.4.3
 python-json-logger
-odmantic
+odmantic~=0.3.5
+
+## motor~=2.3.1 ??
+starlette~=0.17.1
+pymongo~=3.12.3

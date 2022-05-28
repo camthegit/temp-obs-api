@@ -2,13 +2,14 @@
 ## To be edited to reflect Mongo setup on a separate server to the website
 
 # *** edit wget and echo below to reflect the correct mongo and linux versions ***
-wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
-
+## wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
+wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
 # get Linux version
 cat /proc/version
 
 # echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
-echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+## echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list
 sudo apt-get update
 
 sudo apt-get install -y mongodb-org
