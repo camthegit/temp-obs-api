@@ -4,6 +4,8 @@
 # *** edit wget and echo below to reflect the correct mongo and linux versions ***
 ## wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
 wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
+# above is deprecated
+wget -O- https://www.mongodb.org/static/pgp/server-5.0.asc | gpg --dearmor | sudo tee /usr/share/keyrings/mongodb-archive-keyring.gpg
 # get Linux version
 cat /proc/version
 
