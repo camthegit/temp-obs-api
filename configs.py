@@ -65,7 +65,6 @@ class FactoryConfig:
         self.env_state = env_state
         # logger.info(f'just did init in FactoryConfig, env_state = {self.env_state}')
 
-
     def __call__(self):
         if self.env_state == "dev":
             return DevConfig()
