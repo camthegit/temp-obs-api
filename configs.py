@@ -4,13 +4,13 @@
    For example, although I’ve defined an attribute called REDIS_PASS in the GlobalConfig class,
    there is no mention of any REDIS_PASS variable in the .env file.
    MAY NOT WORK in windows ?? """
-# import logging  ## wastrying to log here but would not work
+import logging  ## wastrying to log here but would not work
 from typing import Optional
 
 from pydantic import BaseSettings, Field, BaseModel
 
 
-# logger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
 class AppConfig(BaseModel):
     """Application configurations."""
@@ -75,4 +75,6 @@ class FactoryConfig:
 
 cnf = FactoryConfig(GlobalConfig().ENV_STATE)()
 
+# TODO: stop exporting variables when OK
 print(cnf.__repr__())  # comment out in production
+logger.debug('Environment vbles %s' % repr(cnf))

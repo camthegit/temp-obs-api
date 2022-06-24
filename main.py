@@ -17,7 +17,7 @@ from data.mongo_run import get_engine
 from data import test_db
 from services import openweather_service
 from views import home
-from configs import cnf
+
 from models import observations
 import asyncio
 
@@ -25,6 +25,8 @@ api = fastapi.FastAPI()
 logging.config.dictConfig(LOGGING_CONFIG)
 logger = logging.getLogger(__name__)
 logger.info('logger started at head of main')
+
+from configs import cnf
 
 
 def configure():
